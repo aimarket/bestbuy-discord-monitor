@@ -1,4 +1,5 @@
 # Bestbuy Discord Monitor
+*Pre-Alpa stage*
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Best_Buy_Logo.svg/800px-Best_Buy_Logo.svg.png" alt="drawing" width="200" height="140"/>
 
