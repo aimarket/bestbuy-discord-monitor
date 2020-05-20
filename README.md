@@ -1,4 +1,7 @@
 # Bestbuy Discord Monitor
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Best_Buy_Logo.svg/800px-Best_Buy_Logo.svg.png" alt="drawing" width="200" height="140"/>
+
 ## *follow instructions in the main file
 Detects if a product is back in stock and will notify on Discord with webhook
 
