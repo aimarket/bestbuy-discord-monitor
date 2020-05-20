@@ -3,7 +3,6 @@ from products_list import products_list
 from time import strftime, localtime, time
 from urllib.parse import quote
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import TimeoutException
 import requests
@@ -19,6 +18,9 @@ BESTBUY Monitor
 This uses the selenium webdriver for javascript websites(BESTBUY) to load in a headless browser
 I tried my best to add comments but if something needs better explination please let me know
 
+DOWNLOADS: FIREFOX - https://www.mozilla.org/en-US/exp/firefox/new/
+          Geckodriver - https://github.com/mozilla/geckodriver/releases
+          
 DISCORD: Line 76 enter webhook to embed a post on discord
 
 TIME: Line 70 Please change this to reflect the number of proxies
@@ -183,7 +185,7 @@ while(online):
         }
         profile = webdriver.FirefoxProfile()
         profile.set_preference("general.useragent.override", header_dict[headerlist[headercounter]]['User-Agent'])
-        driver = webdriver.Firefox(options=options,firefox_profile=profile)
+        driver = webdriver.Firefox(options=options,firefox_profile=profile,desired_capabilities= webdriver.DesiredCapabilities.FIREFOX)
         #website request timeout
         driver.set_page_load_timeout(20)
         #serches url in the product_list.py file
