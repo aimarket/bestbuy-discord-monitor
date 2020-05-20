@@ -27,6 +27,7 @@ TIME: Line 70 Please change this to reflect the number of proxies
 Products: Products_list.py enter product(s) url as a string in the dictionary 
 
 PROXIES: Enter https proxies in Proxy-List.txt
+Free proxie website: http://free-proxy.cz/en/proxylist/country/US/https/date/all
     For example:
         HOST:PORT
         209.97.138.116:8080
