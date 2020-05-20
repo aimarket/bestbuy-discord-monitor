@@ -3,7 +3,6 @@ from products_list import products_list
 from time import strftime, localtime, time
 from urllib.parse import quote
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import TimeoutException
 import requests
@@ -19,6 +18,9 @@ BESTBUY Monitor
 This uses the selenium webdriver for javascript websites(BESTBUY) to load in a headless browser
 I tried my best to add comments but if something needs better explination please let me know
 
+DOWNLOADS: FIREFOX - https://www.mozilla.org/en-US/exp/firefox/new/
+          Geckodriver - https://github.com/mozilla/geckodriver/releases
+          
 DISCORD: Line 76 enter webhook to embed a post on discord
 
 TIME: Line 70 Please change this to reflect the number of proxies
@@ -26,7 +28,10 @@ TIME: Line 70 Please change this to reflect the number of proxies
 
 Products: Products_list.py enter product(s) url as a string in the dictionary 
 
+
 PROXIES: Enter https proxies in proxy_list.txt
+Free proxie website: http://free-proxy.cz/en/proxylist/country/US/https/date/all
+
     For example:
         HOST:PORT
         209.97.138.116:8080
@@ -198,6 +203,30 @@ def main():
             timeoutonweb = True
         
 
+        PROXY = proxy_dict[proxylist[proxycounter]]['http']
+
+        webdriver.DesiredCapabilities.FIREFOX['proxy'] = {
+            "httpProxy":PROXY,
+            "ftpProxy":PROXY,
+            "sslProxy":PROXY,
+            #"noProxy":None,
+            "proxyType":"MANUAL",
+            #"class":"org.openqa.selenium.Proxy",
+            #"autodetect":True
+        }
+        profile = webdriver.FirefoxProfile()
+        profile.set_preference("general.useragent.override", header_dict[headerlist[headercounter]]['User-Agent'])
+        driver = webdriver.Firefox(options=options,firefox_profile=profile,desired_capabilities= webdriver.DesiredCapabilities.FIREFOX)
+        #website request timeout
+        driver.set_page_load_timeout(20)
+        #serches url in the product_list.py file
+        driver.get(products_list[productlist[productcounter]])
+        #Grab html content
+        html = driver.page_source
+    except TimeoutException as e:
+        timeoutonweb = True
+
+
         # debugging
         date = strftime("%Y-%m-%d %H:%M:%S", localtime())
         if(timeoutonweb==False):
@@ -261,6 +290,7 @@ def main():
 
     send_notification(0,"Notify Creator I used up my proxies :(")
     exit()
+
 
 
 if __name__ == '__main__':
