@@ -4,7 +4,7 @@
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Best_Buy_Logo.svg/800px-Best_Buy_Logo.svg.png" alt="drawing" width="200" height="140"/><img src="https://i.imgur.com/ZOKp8LHg.png" alt="drawing" width="140" height="140"/>
 
 ## follow instructions in the main file
-Detects if a product is back in stock and will notify on Discord with webhook
+Detects if a product is back in stock and will notify on Discord using webhook
 
 This uses the selenium webdriver for javascript websites(BESTBUY) to load in a headless browser.
 
@@ -18,7 +18,7 @@ Must have these:
 `pip install`
 - selenium
 - requests
-- beatifulsoup
+- bs4
 
 ## HOW TO USE:
   `python main.py`

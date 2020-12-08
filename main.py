@@ -14,16 +14,18 @@ import json
 """
 =================================================================================================
 BESTBUY Monitor
-
+Detects if a product is back in stock and will notify on Discord using webhook.
 This uses the selenium webdriver for javascript websites(BESTBUY) to load in a headless browser
 I tried my best to add comments but if something needs better explination please let me know
 
-DOWNLOADS: FIREFOX - https://www.mozilla.org/en-US/exp/firefox/new/
-          Geckodriver - https://github.com/mozilla/geckodriver/releases
-          
-DISCORD: Line 76 enter webhook to embed a post on discord
+DOWNLOADS:  FIREFOX - https://www.mozilla.org/en-US/exp/firefox/new/
+            Geckodriver - https://github.com/mozilla/geckodriver/releases
 
-TIME: Line 70 Please change this to reflect the number of proxies
+GECKODRIVER: Line 88 Enter the location of geckodriver.exe
+
+DISCORD: Line 85 enter discord bot webhook to embed a post on discord
+
+TIME: Line 79 Please change this to reflect the number of proxies
     LESS proxies = Higher delay
 
 Products: Products_list.py enter product(s) url as a string in the dictionary 
@@ -42,6 +44,10 @@ Future Updates hopefully:
 
 =================================================================================================
 """
+#CHANGE set to true if using proxies
+prox= False 
+#CHANGE set to true if you are using discord
+send=False
 
 #initiate proxy list and format for selenium
 proxy_dict = {}
@@ -70,7 +76,7 @@ proxycounter = 0
 productcounter = 0
 
 #be reasonable, unless you have a long list of proxies, stick with longer delay
-delaylimit = 15
+delaylimit = 10
 
 #Proxy organization
 timeoutdict = {}
@@ -78,6 +84,8 @@ timeoutdict = {}
 discord_queue = []
 webhook = 'YOUR WEBHOOK ON A STRING'
 
+#enter PATH to geckodriver.exe
+gecko_location="your\path\geckodriver.exe"
 
 
 
@@ -173,19 +181,19 @@ while(online):
     try:
         
         PROXY = proxy_dict[proxylist[proxycounter]]['http']
-
-        webdriver.DesiredCapabilities.FIREFOX['proxy'] = {
-            "httpProxy":PROXY,
-            "ftpProxy":PROXY,
-            "sslProxy":PROXY,
-            #"noProxy":None,
-            "proxyType":"MANUAL",
-            #"class":"org.openqa.selenium.Proxy",
-            #"autodetect":True
-        }
+        if prox==True:
+            webdriver.DesiredCapabilities.FIREFOX['proxy'] = {
+                "httpProxy":PROXY,
+                "ftpProxy":PROXY,
+                "sslProxy":PROXY,
+                #"noProxy":None,
+                "proxyType":"MANUAL",
+                #"class":"org.openqa.selenium.Proxy",
+                #"autodetect":True
+            }
         profile = webdriver.FirefoxProfile()
         profile.set_preference("general.useragent.override", header_dict[headerlist[headercounter]]['User-Agent'])
-        driver = webdriver.Firefox(options=options,firefox_profile=profile,desired_capabilities= webdriver.DesiredCapabilities.FIREFOX)
+        driver = webdriver.Firefox(options=options,firefox_profile=profile,desired_capabilities= webdriver.DesiredCapabilities.FIREFOX, executable_path=gecko_location)
         #website request timeout
         driver.set_page_load_timeout(20)
         #serches url in the product_list.py file
@@ -205,13 +213,15 @@ while(online):
             if(products_list[productlist[productcounter]] not in discord_queue):
                 #print("website not in queue")
                 discord_queue.append(products_list[productlist[productcounter]])
-                send_notification(1,products_list[productlist[productcounter]])
+                if send==True:
+                    send_notification(1,products_list[productlist[productcounter]])
         else:
             # product sold out again
             for itm in discord_queue:
                 if(itm == products_list[productlist[productcounter]]):
                     discord_queue.pop(itm)
-                    send_notification(2,products_list[productlist[productcounter]])
+                    if send==True:
+                        send_notification(2,products_list[productlist[productcounter]])
         #TODO make a document to log all this information for debugging
         print(products_list[productlist[productcounter]][12:], "online at ", date, " code: ", 200, " using header #", headerlist[headercounter], "proxy ",proxy_dict[proxylist[proxycounter]]['http']," #", proxylist[proxycounter])
     else:
@@ -251,6 +261,6 @@ while(online):
 
     #kill driver window
     driver.quit()
-
-send_notification(0,"Notify Creator I used up my proxies :(")
+if send==True:
+    send_notification(0,"Notify Creator I used up my proxies :(")
 exit()
