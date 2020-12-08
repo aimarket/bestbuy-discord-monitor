@@ -12,6 +12,7 @@ I tried my best to add comments but if something needs better explination please
 
 ## Downloads:
 Must have these:
+[Python](https://www.python.org/downloads/)
 [Firefox](https://www.mozilla.org/en-US/exp/firefox/new/),
 [Geckodriver](https://github.com/mozilla/geckodriver/releases)
 ## Dependencies:
