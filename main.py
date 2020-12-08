@@ -193,6 +193,7 @@ while(online):
             }
         profile = webdriver.FirefoxProfile()
         profile.set_preference("general.useragent.override", header_dict[headerlist[headercounter]]['User-Agent'])
+        profile.set_preference("dom.disable_beforeunload", True)
         driver = webdriver.Firefox(options=options,firefox_profile=profile,desired_capabilities= webdriver.DesiredCapabilities.FIREFOX, executable_path=gecko_location)
         #website request timeout
         driver.set_page_load_timeout(20)
