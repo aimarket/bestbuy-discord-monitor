@@ -1,5 +1,6 @@
 # Bestbuy Discord Monitor
-![](https://img.shields.io/badge/stage-Pre--Alpha-orange)
+![](https://img.shields.io/badge/stage-Pre--Alpha-orange) 
+![](https://img.shields.io/badge/Active-No-red)
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Best_Buy_Logo.svg/800px-Best_Buy_Logo.svg.png" alt="drawing" width="200" height="140"/><img src="https://i.imgur.com/ZOKp8LHg.png" alt="drawing" width="140" height="140"/>
 
